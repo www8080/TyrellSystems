@@ -31,11 +31,11 @@
 -->
 
 <?PHP
-error_reporting(E_ALL);
-error_reporting(-1);
-ini_set('error_reporting', E_ALL);
-
-$numOfPeople	= floor($_POST['numOfPeople']);
+if(!empty($_POST['numOfPeople'])){
+	$numOfPeople	= floor($_POST['numOfPeople']);
+} else {
+	$numOfPeople	= 0;
+}
 $cardTypes		= array('S','H','D','C');
 $cards				= array('A',2,3,4,5,6,7,8,9,'X','J','Q','K');
 
