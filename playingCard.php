@@ -1,10 +1,10 @@
-﻿<?
+<?
 $numOfPeople	= floor($_POST['numOfPeople']);
-$cardTypes	= array('S','H','D','C');
-$cards		= array('A',2,3,4,5,6,7,8,9,'X','J','Q','K');
+$cardTypes		= array('S','H','D','C');
+$cards				= array('A',2,3,4,5,6,7,8,9,'X','J','Q','K');
 
 $debugRowSpan	= 2; //$default row span size Debug Row
-$debugRowSpan	+= $numOfPeople;
+$debugRowSpan += $numOfPeople;
 
 $deck = array();	
 foreach ($cardTypes as $cardType) {
@@ -96,10 +96,10 @@ echo "<br>numOfPeople:". $numOfPeople."<br>";
 				</td>
 				<td width="68%" align="center">
 					<form id="target" method="POST" action="playingCard2.php">
-						<b>Number of people:</b> 
-						<!-- Set the numOfPeople input MaxLenght Size to 2 digit, max 99, IF server heavy load, maxlength="2" -->
-						<input type="text" id="numOfPeople" name="numOfPeople" autofocus> 
-						<button type="button">Submit</button>
+							<b>Number of people:</b> 
+							<!-- Set the numOfPeople input MaxLenght Size to 2 digit, max 99, IF server heavy load, maxlength="2" -->
+							<input type="text" id="numOfPeople" name="numOfPeople" autofocus> 
+							<button type="button">Submit</button>
 					</form>
 					<?
 						//<input type="submit" name="Action" value="Submit">
@@ -111,46 +111,46 @@ echo "<br>numOfPeople:". $numOfPeople."<br>";
 					<?
 						//Get Number of Card for each person (Total of Card / Number of People)
 						$numOfCardPerPerson = @floor($totalCards / $numOfPeople);
-						//break;
+							//break;
 						for ($i=1; $i<=$numOfPeople;$i++) {
 					?>
 			<tr>
 				<td align="center">
 					<?
-						$numSuffix = getNumSuffix($i);
-						//Case IF numOfPeople more than 'total of card'
-						if ($numOfPeople > $totalCards && $numOfCardPerPerson == 0) {
-								$numOfCardPerPerson = $totalCards/$totalCards;
-						}
-						echo "<b>".$numSuffix." People</b>, get <b>$numOfCardPerPerson</b> Card(s)<br>";
-						if ($i <= $totalCards) {
-							$myCards = array_rand($deck, $numOfCardPerPerson);
-						} else {
-							echo "<font color=Red>Card empty, ALL cards distributed out. No More card for this people.[".$numSuffix."]</font><br>";
-						}
-						//IF exceeded $totalCards (IE:52)
-						//} elseif ($numOfPeople > $totalCards && $numOfCardPerPerson == 0) {
-						//echo "error1001 numOfCardPerPerson-->$numOfCardPerPerson<---";
-						//$numOfCardPerPerson = $totalCards/$totalCards;
-						//$myCards = array_rand($deck, $numOfCardPerPerson);
-						//}
-						//****************************DEBUG**********************************************************
-						//echo "numOfCardPerPerson-->$numOfCardPerPerson<--";
-						//echo "myCards-->$myCards<--";
-						//print_r ($myCards); 
-						//$myHand = array();
-						//*************************END DEBUG*********************************************************
-								
-						if ((is_array($myCards) || is_object($myCards)) && $numOfCardPerPerson > 1) {
-							foreach ($myCards as $key) {
-							    $myHand[] = $deck[$key];
-							    unset($deck[$key]);
+							$numSuffix = getNumSuffix($i);
+							//Case IF numOfPeople more than 'total of card'
+							if ($numOfPeople > $totalCards && $numOfCardPerPerson == 0) {
+									$numOfCardPerPerson = $totalCards/$totalCards;
 							}
+							echo "<b>".$numSuffix." People</b>, get <b>$numOfCardPerPerson</b> Card(s)<br>";
+							if ($i <= $totalCards) {
+								$myCards = array_rand($deck, $numOfCardPerPerson);
+							} else {
+								echo "<font color=Red>Card empty, ALL cards distributed out. No More card for this people.[".$numSuffix."]</font><br>";
+							}
+								//IF exceeded $totalCards (IE:52)
+							//} elseif ($numOfPeople > $totalCards && $numOfCardPerPerson == 0) {
+									//echo "error1001 numOfCardPerPerson-->$numOfCardPerPerson<---";
+									//$numOfCardPerPerson = $totalCards/$totalCards;
+									//$myCards = array_rand($deck, $numOfCardPerPerson);
+							//}
+								//****************************DEBUG**********************************************************
+								//echo "numOfCardPerPerson-->$numOfCardPerPerson<--";
+								//echo "myCards-->$myCards<--";
+								//print_r ($myCards); 
+								//$myHand = array();
+								//*************************END DEBUG*********************************************************
+								
+							if ((is_array($myCards) || is_object($myCards)) && $numOfCardPerPerson > 1) {
+								foreach ($myCards as $key) {
+								    $myHand[] = $deck[$key];
+								    unset($deck[$key]);
+								}
 							} elseif (count($numOfCardPerPerson) == 1) {
 								$key = $myCards;
 								$myHand[] = $deck[$key];
 								unset($deck[$key]);
-								}
+							}
 							//print_r($myHand);
 							$myHandSepByComma = implode(',', $myHand); 
 							echo "<font color='#008000'>";
@@ -190,13 +190,13 @@ echo "<br>numOfPeople:". $numOfPeople."<br>";
 					*/
  					//Prevent keypress Enter at text box
         	$('#numOfPeople').keypress(function(event){
-			var keycode = (event.keyCode ? event.keyCode : event.which);
-			if(keycode == '13'){
-				alert('Please presse on the Submit Button');
-					event.preventDefault()
-			}
-		});
-	//Number Validation - numOfPeople textbox 
+								    var keycode = (event.keyCode ? event.keyCode : event.which);
+								    if(keycode == '13'){
+								        alert('Please presse on the Submit Button');
+								        event.preventDefault()
+								    }
+					});
+					//Number Validation - numOfPeople textbox 
           $("button").click(function() {
           	var inputVal	= $("#numOfPeople").val(); 
             var numValid	= $.isNumeric(inputVal); 
@@ -211,16 +211,16 @@ echo "<br>numOfPeople:". $numOfPeople."<br>";
         }); 
         
         window.onscroll = function() {myFunction()};
-		var header = document.getElementById("myHeader");
-		var sticky = header.offsetTop;
-			
-		myFunction() {
-		if (window.pageYOffset > sticky) {
-			header.classList.add("sticky");
-		} else {
-			header.classList.remove("sticky");
-		}
-	}
+				var header = document.getElementById("myHeader");
+				var sticky = header.offsetTop;
+				
+				function myFunction() {
+				  if (window.pageYOffset > sticky) {
+				    header.classList.add("sticky");
+				  } else {
+				    header.classList.remove("sticky");
+				  }
+				}
     </script> 
     <?
     	if ($numOfPeople > 15) {
