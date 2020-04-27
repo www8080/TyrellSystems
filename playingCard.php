@@ -1,4 +1,4 @@
-<?
+﻿<?
 $numOfPeople	= floor($_POST['numOfPeople']);
 $cardTypes		= array('S','H','D','C');
 $cards				= array('A',2,3,4,5,6,7,8,9,'X','J','Q','K');
@@ -128,7 +128,7 @@ echo "<br>numOfPeople:". $numOfPeople."<br>";
 							} else {
 								echo "<font color=Red>Card empty, ALL cards distributed out. No More card for this people.[".$numSuffix."]</font><br>";
 							}
-								//IF exceeded $totalCards (Example:52)
+								//IF exceeded $totalCards (IE:52)
 							//} elseif ($numOfPeople > $totalCards && $numOfCardPerPerson == 0) {
 									//echo "error1001 numOfCardPerPerson-->$numOfCardPerPerson<---";
 									//$numOfCardPerPerson = $totalCards/$totalCards;
