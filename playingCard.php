@@ -75,7 +75,7 @@ echo "<br>numOfPeople:". $numOfPeople."<br>";
 
 //
 ?>
-		<table width="90%" border="1" align="center" id="myHeader">
+		<table width="90%" border="1" align="center">
 			<tr>
 				<th>Debuging</th>
 				<th>Programming Test - Playing cards will be given out to n(number) people</th>
@@ -128,7 +128,7 @@ echo "<br>numOfPeople:". $numOfPeople."<br>";
 							} else {
 								echo "<font color=Red>Card empty, ALL cards distributed out. No More card for this people.[".$numSuffix."]</font><br>";
 							}
-								//IF exceeded $totalCards (IE:52)
+								//IF exceeded $totalCards (Example:52)
 							//} elseif ($numOfPeople > $totalCards && $numOfCardPerPerson == 0) {
 									//echo "error1001 numOfCardPerPerson-->$numOfCardPerPerson<---";
 									//$numOfCardPerPerson = $totalCards/$totalCards;
@@ -210,17 +210,6 @@ echo "<br>numOfPeople:". $numOfPeople."<br>";
           }); 
         }); 
         
-        window.onscroll = function() {myFunction()};
-				var header = document.getElementById("myHeader");
-				var sticky = header.offsetTop;
-				
-				function myFunction() {
-				  if (window.pageYOffset > sticky) {
-				    header.classList.add("sticky");
-				  } else {
-				    header.classList.remove("sticky");
-				  }
-				}
     </script> 
     <?
     	if ($numOfPeople > 15) {
