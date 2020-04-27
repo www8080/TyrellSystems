@@ -77,7 +77,7 @@ echo "<br>numOfPeople:". $numOfPeople."<br>";
 ?>
 		<table width="90%" border="1" align="center">
 			<tr>
-				<th>Debuging</th>
+				<th>Debugging</th>
 				<th>Programming Test - Playing cards will be given out to n(number) people</th>
 			</tr>
 			<tr>
