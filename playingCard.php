@@ -127,7 +127,7 @@ echo "<br>numOfPeople:". $numOfPeople."<br>";
 					?>
 				</td>
 				<td width="68%" align="center">
-					<form id="target" method="POST" action="playingCard2.php">
+					<form id="target" method="POST" action="playingCard.php">
 							<b>Number of people:</b> 
 							<!-- Set the numOfPeople input MaxLenght Size to 2 digit, max 99, IF server heavy load, maxlength="2" -->
 							<input type="text" id="numOfPeople" name="numOfPeople" autofocus> 
