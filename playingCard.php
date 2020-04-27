@@ -1,6 +1,6 @@
 ﻿<!--
-# Tyrell Systems Programming Test - PHP playing cards distribute system
-=====================================================================================
+# Tyrell Systems Programming Test - PHP playing cards distribute script
+========================================================================
 
 ## README:
 
