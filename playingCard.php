@@ -144,7 +144,6 @@ function getNumSuffix($num) {
 								echo "<font color=Red>Card empty, ALL cards distributed out. No More card for this people.[".$numSuffix."]</font><br>";
 							}
 								
-								
 							if ((is_array($myCards) || is_object($myCards)) && $numOfCardPerPerson > 1) {
 								foreach ($myCards as $key) {
 								    $myHand[] = $deck[$key];
