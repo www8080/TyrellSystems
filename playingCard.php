@@ -1,4 +1,40 @@
-﻿<?
+﻿<!--
+# Tyrell Systems Programming Test - PHP playing cards distribute script
+======================================================================
+
+## README:
+
+## Overview
+
+- This system capture input [Number of people] and playing cards will be given out to these n(number) of people. 
+- Total 52 cards containing 1-13 of each Spade(S), Heart(H), Diamond(D), Club(C) will be given to n people randomly.
+-	Card format (Spade = S, Heart = H, Diamond = D, Club = C), (Card 2 to 9 are, as it is, 1=A,10=X,11=J,12=Q,13=K).
+- Each people will receive number of cards evenly in a 'First Come First Serve' basis 
+	-	For example scenario below,
+		-	If 52 cards, 52 people. Each people will receive 1 card each.
+		-	If 52 cards, 53 people. Each people will receive 1 card each, except the last people(53th person) will not receive card because the card was empty.
+
+## Folder Structure
+	'/path/to/your/www/yourFolder'/playingCard.php
+
+### playingCard.php
+	This file will contains PHP, HTML and JQuery code
+
+## Usage
+1.	User will key-in the total of people in the input box[Number of people].
+2. 	Click on the Submit button to generate the result.
+3.	The page contains of a table with 2 colume, 
+			- left colume 'debugging' containing information of the Original cards in order.
+			- Right colume containing the input box[Number of people] and the submit button, and the cards distribution result shows below. Last row will show 'Total card left'.
+
+//END OF README
+-->
+
+<?PHP
+error_reporting(E_ALL);
+error_reporting(-1);
+ini_set('error_reporting', E_ALL);
+
 $numOfPeople	= floor($_POST['numOfPeople']);
 $cardTypes		= array('S','H','D','C');
 $cards				= array('A',2,3,4,5,6,7,8,9,'X','J','Q','K');
@@ -12,6 +48,7 @@ foreach ($cardTypes as $cardType) {
         $deck[] = $cardType . "-" . $card;
     }
 }
+
 $totalCards	=	count($deck);
 
 function getNumSuffix($num) {
@@ -26,18 +63,6 @@ function getNumSuffix($num) {
     return $num.'th';
   }
 
-//****************************DEBUG**********************************************************
-/*
-//Debugging:
-foreach($deck as $key => $value)
-{
-  echo $value ."<br>";
-}
-echo "Count Array Size:" . count($deck);
-
-echo "<br>numOfPeople:". $numOfPeople."<br>";
-*/
-//************************END DEBUG**********************************************************
 ?>
 <html>
 	<head>
@@ -65,50 +90,40 @@ echo "<br>numOfPeople:". $numOfPeople."<br>";
 		<script src= "https://code.jquery.com/jquery-3.5.0.min.js"></script> 		
 	</head>
 	<body><a id="top"></a><br>
-<?	
-//****************************DEBUG**********************************************************
-//array_chunk($shuffleResult, $numOfPeople);
-//for ($i =0; $i<sizeOf($shuffleResult); $i++) {
-//	echo "$shuffleResult[$i]";
-//}
-//************************END DEBUG**********************************************************
 
-//
-?>
-		<table width="90%" border="1" align="center" id="myHeader">
+		<table width="90%" border="1" align="center">
 			<tr>
-				<th>Debuging</th>
+				<th>Debugging</th>
 				<th>Programming Test - Playing cards will be given out to n(number) people</th>
 			</tr>
 			<tr>
-				<td width="32%" rowspan="<?=$debugRowSpan?>" valign="top" align="left">
-					<b><u>Total Cards (Original):</u> <font color='#008000'><?=$totalCards?></font></b><br>
-					<?
+				<td width="32%" rowspan="<?PHP echo $debugRowSpan?>" valign="top" align="left">
+					<b><u>Total Cards (Original):</u> <font color='#008000'><?PHP echo $totalCards?></font></b><br>
+					<?PHP
 						//print_r($deck);
 						print_r(implode(',', $deck));
 					?>
-					<br><br><b><u>Total Cards (After Shuffle):</u> <font color='#008000'><?=$totalCards?></font></b><br>
-					<?
+					<br><br><b><u>Total Cards (After Shuffle):</u> <font color='#008000'><?PHP echo $totalCards?></font></b><br>
+					<?PHP
 						shuffle($deck);
 						//print_r($deck);
 						print_r(implode(',', $deck));
 					?>
 				</td>
 				<td width="68%" align="center">
-					<form id="target" method="POST" action="playingCard2.php">
+					<form id="target" method="POST" action="playingCard.php">
 							<b>Number of people:</b> 
 							<!-- Set the numOfPeople input MaxLenght Size to 2 digit, max 99, IF server heavy load, maxlength="2" -->
 							<input type="text" id="numOfPeople" name="numOfPeople" autofocus> 
 							<button type="button">Submit</button>
 					</form>
-					<?
-						//<input type="submit" name="Action" value="Submit">
+					<?PHP
 						//Dealing Cards to N people
 						echo "<b><u>Total of People:</u> <font color='#008000'> ". $numOfPeople."</font></b><br>";
 					?>
 				</td>
 			</tr>
-					<?
+					<?PHP
 						//Get Number of Card for each person (Total of Card / Number of People)
 						$numOfCardPerPerson = @floor($totalCards / $numOfPeople);
 							//break;
@@ -116,7 +131,7 @@ echo "<br>numOfPeople:". $numOfPeople."<br>";
 					?>
 			<tr>
 				<td align="center">
-					<?
+					<?PHP
 							$numSuffix = getNumSuffix($i);
 							//Case IF numOfPeople more than 'total of card'
 							if ($numOfPeople > $totalCards && $numOfCardPerPerson == 0) {
@@ -128,18 +143,7 @@ echo "<br>numOfPeople:". $numOfPeople."<br>";
 							} else {
 								echo "<font color=Red>Card empty, ALL cards distributed out. No More card for this people.[".$numSuffix."]</font><br>";
 							}
-								//IF exceeded $totalCards (IE:52)
-							//} elseif ($numOfPeople > $totalCards && $numOfCardPerPerson == 0) {
-									//echo "error1001 numOfCardPerPerson-->$numOfCardPerPerson<---";
-									//$numOfCardPerPerson = $totalCards/$totalCards;
-									//$myCards = array_rand($deck, $numOfCardPerPerson);
-							//}
-								//****************************DEBUG**********************************************************
-								//echo "numOfCardPerPerson-->$numOfCardPerPerson<--";
-								//echo "myCards-->$myCards<--";
-								//print_r ($myCards); 
-								//$myHand = array();
-								//*************************END DEBUG*********************************************************
+								
 								
 							if ((is_array($myCards) || is_object($myCards)) && $numOfCardPerPerson > 1) {
 								foreach ($myCards as $key) {
@@ -156,7 +160,6 @@ echo "<br>numOfPeople:". $numOfPeople."<br>";
 							echo "<font color='#008000'>";
 								print_r($myHandSepByComma);
 							echo "</font>";
-							//if (count($myHand))
 							unset($myHand);
 						}
 					?>
@@ -164,7 +167,7 @@ echo "<br>numOfPeople:". $numOfPeople."<br>";
 			</tr>
 			<tr>
 				<td>
-					<?
+					<?PHP
 					//****************************DEBUG**********************************************************
 							//echo $shuffleResult."<br>";
 							//print_r($myHand);
@@ -210,26 +213,15 @@ echo "<br>numOfPeople:". $numOfPeople."<br>";
           }); 
         }); 
         
-        window.onscroll = function() {myFunction()};
-				var header = document.getElementById("myHeader");
-				var sticky = header.offsetTop;
-				
-				function myFunction() {
-				  if (window.pageYOffset > sticky) {
-				    header.classList.add("sticky");
-				  } else {
-				    header.classList.remove("sticky");
-				  }
-				}
     </script> 
-    <?
+    <?PHP
     	if ($numOfPeople > 15) {
     ?>
     	<br>		
     	<div align="right">
     		<a href="#top">Go to top of page</a>
     	<div>
-		<?
+		<?PHP
     	}
     ?>		
 </body>
