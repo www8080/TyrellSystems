@@ -1,4 +1,5 @@
 ﻿<?
+//123
 $numOfPeople	= floor($_POST['numOfPeople']);
 $cardTypes		= array('S','H','D','C');
 $cards				= array('A',2,3,4,5,6,7,8,9,'X','J','Q','K');
