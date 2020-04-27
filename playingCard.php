@@ -212,6 +212,8 @@ function getNumSuffix($num) {
         }); 
         
     </script> 
+    
+    
     <?PHP
     	if ($numOfPeople > 15) {
     ?>
