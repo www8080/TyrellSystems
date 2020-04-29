@@ -1,0 +1,89 @@
+﻿B) SQL Improvement Logic Test
+==========================================================================================================
+
+SQL query speed improvement suggestion:
+- Indexes on the fields which are in the search criterial, WHERE clause and ON conditions, etc..
+- use compound index for multiple column search
+
+Original Query WHERE Clause::
+	WHERE ((JobCategories.name LIKE ' %キャビンアテンダント% '
+	OR JobTypes.name LIKE ' %キャビンアテンダント% '
+	OR Jobs.name LIKE ' %キャビンアテンダント% '
+	OR Jobs.description LIKE ' %キャビンアテンダント% '
+	OR Jobs.detail LIKE ' %キャビンアテンダント% '
+	OR Jobs.business_skill LIKE ' %キャビンアテンダント% '
+	OR Jobs.knowledge LIKE ' %キャビンアテンダント% '
+	OR Jobs.location LIKE ' %キャビンアテンダント% '
+	OR Jobs.activity LIKE ' %キャビンアテンダント% '
+	OR Jobs.salary_statistic_group LIKE ' %キャビンアテンダント% '
+	OR Jobs.salary_range_remarks LIKE ' %キャビンアテンダント% '
+	OR Jobs.restriction LIKE ' %キャビンアテンダント% '
+	OR Jobs.remarks LIKE ' %キャビンアテンダント% '
+	
+	OR Personalities.name LIKE ' %キャビンアテンダント% '
+	OR PracticalSkills.name LIKE ' %キャビンアテンダント% '
+	OR BasicAbilities.name LIKE ' %キャビンアテンダント% '
+	OR Tools.name LIKE ' %キャビンアテンダント% '
+	OR CareerPaths.name LIKE ' %キャビンアテンダント% '
+	OR RecQualifications.name LIKE ' %キャビンアテンダント% '
+	OR ReqQualifications.name LIKE ' %キャビンアテンダント% ')
+
+1)there is a lots of LIKE Operator using in the WHERE Clause, some of it can be replace with = Operator (Equal to),
+	for example,
+	
+	(a) JobCategories.name LIKE ' %キャビンアテンダント% ' , replace with --> Jobs.job_category_id = '$jobCategoryID' ($jobCategoryID is POST from the form, the value from selection box's option value)
+			Because in the frontend's 'Job Search Criteria/Filteration' form, the Job Category filteration should be a <Select> element,
+			<Select name="jobCategoryID">
+				<option value="1">Admin/Human Resources</option>
+    		<option value="2">Art/Media/Communications</option>
+    		<option value="3">Computer/Information Technology</option>
+    		..
+    		..
+			</Select>
+			
+	(b) JobTypes.name LIKE ' %キャビンアテンダント% ' , replace with --> Jobs.job_type_id = '$jobTypeID' ($jobTypeID is POST from the form, the value from selection box's option value)
+			Because in the frontend's 'Job Search Criteria/Filteration' form, the Job Category filteration should be a <Select> element,
+			<Select name="jobTypeID">
+				<option value="1"></option>
+    		<option value="2">Part Time</option>
+    		<option value="3">Full Time</option>
+    		<option value="3">Contract</option>
+    		..
+    		..
+			</Select>
+			
+	(c) Some of the fields in the Where Clause (.. OR ..) above can do the same changes like (a) and (b) above, to retrieve data using = Operator (Equal to), 
+			from the 'id' send from the form-->selection box OR the exact value from the option box, no need to let user key in into Textbox. So no need to perform LIKE statement (LIKE statment will increase time
+			search operation/time)
+			(*since i don't have the full database schema,colume description/usage & actual system requirement/functional specifications, need to confirm with the database author/creator),
+			for example,
+			- Jobs.business_skill
+			- Jobs.location
+			- Jobs.salary_statistic_group
+			- salary_range_remarks
+			- Jobs.restriction
+
+4)  And can consider take out joining JobCategories & JobTypes table from this query, retrieve the JobCategories & JobTypes info from another seperate query to show to the screen 
+		- this reduces joining to 2 tables(job_categories,job_types) in this query
+		- and reduces 14 columns (JobCategories.name, ...JobTypes.deleted ) from the query, tends reduces data table rendering time
+		- Even though we need to create additional query to generate the result, but it will help to increaase in query execution time, which will improve overall page loading time in most cases base on
+			database design structure, table size, keys designed, etc.. (*need to analyst the performance using the EXPLAIN statement on the query)
+		
+		Question:	
+			- But then how can we filter out those JobCategories.deleted (IS NULL) & JobTypes.deleted (IS NULL) which not delete since we do not join in this query?
+		Solution:
+			- to have another field in Jobs table to indicate this Job's Category already been deleted,
+			- create new table column, Jobs.job_category_deleted, after Jobs.job_category_id, Update & set this Jobs.job_category_deleted to 1 (*Not NULL) while a job category being deleted from the system,
+			- create new table column, Jobs.job_type_deleted, after Jobs.job_type_id, Update & set this Jobs.job_type_deleted to 1 (*Not NULL) while a job type being delete from the system,
+				- "UPDATE Job SET job_category_deleted=1 WHERE job_category_id='$FORM_JobCategory_ID' AND job_category_deleted=NULL"
+				- "UPDATE Job SET job_type_deleted=1 WHERE job_type_id='$FORM_JobType_ID' AND job_type_deleted=NULL"
+				- Then we can add this 2 new search criteria at the botton of the query right after AND (Jobs.deleted) IS NULL),
+					AND (Jobs.job_category_deleted) IS NULL) 
+					AND	(Jobs.job_type_deleted) IS NULL) 
+				
+
+5) And in some scenarios using multiple smaller queries and bring the logical operations into the application layer by querying the database in more than one calls 
+		or it's better to have them all in big complex query.
+		
+6) 'AND publish_status = 1' to 'AND Jobs.publish_status'
+		

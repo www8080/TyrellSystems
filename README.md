@@ -1,7 +1,14 @@
-# Tyrell Systems Programming Test - PHP playing cards distribute script
+# README
+=====================================================================
+### A) Programming Test
+	Source Code at playingCard.php
+
+### B) SQL Improvement Logic Test
+	- Please refer to uestion2-SQL_Logic_Test.txt
+
 ======================================================================
 
-## README:
+## Programming Test - PHP playing cards distribute script
 
 ## Overview
 
@@ -17,7 +24,7 @@
 	'/path/to/your/www/yourFolder'/playingCard.php
 
 ### playingCard.php
-	This file will contains PHP, HTML and JQuery code
+	This file will contains PHP, HTML, CSS, Javascript and JQuery code
 
 ## Usage
 1.	User will key-in the total of people in the input box[Number of people].
