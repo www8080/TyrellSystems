@@ -80,7 +80,7 @@ function getNumSuffix($num) {
 			  padding: 8px;
 			}
 			
-			tr:hover {background-color:#f2f2f2;}
+			tr:hover {background-color:#EEFCEE;}
 			
 			th {
 			  background-color: #4CAF50;
@@ -212,7 +212,6 @@ function getNumSuffix($num) {
         }); 
         
     </script> 
-    
     
     <?PHP
     	if ($numOfPeople > 15) {
