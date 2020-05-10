@@ -148,9 +148,9 @@ function getNumSuffix($num) {
 								    $myHand[] = $deck[$key];
 								    unset($deck[$key]);
 								}
-							} elseif (count($numOfCardPerPerson) == 1) {
+							} elseif (@count($numOfCardPerPerson) == 1) {
 								$key = $myCards;
-								$myHand[] = $deck[$key];
+								$myHand[] = @$deck[$key];
 								unset($deck[$key]);
 							}
 							//print_r($myHand);
